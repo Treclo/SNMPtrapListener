@@ -8,7 +8,7 @@ import socket
 
 class DataBase:
 	def connect(self):
-		self.database = sqlite3.connect("../docs/app/database")
+		self.database = sqlite3.connect("../web/app/database.sql")
 
 	def execute(self, query):
 		data = self.database.execute(query)
@@ -154,106 +154,106 @@ def cbFun(transportDispatcher, transportDomain, transportAddress, wholeMsg):
 
 		if trap == "0":
 			status = "Spazio parado"
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Spazio';" % (machine)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'WARN', 'Spazio', '%s');" % (machine, status, date)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Spazio';".format(machine=machine)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'WARN', 'Spazio', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "1":
 			status = "Spazio se ha caido"
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Spazio';" % (machine)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'NOTOK', 'Spazio', '%s');" % (machine, status, date)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Spazio';".format(machine=machine)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'NOTOK', 'Spazio', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "2":
 			status = "Spazio funcionando correctamente"
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Spazio';" % (machine)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'OK', 'Spazio', '%s');" % (machine, status, date)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Spazio';".format(machine=machine)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'OK', 'Spazio', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "3":
 			status = "Spazio en estado desconocido"
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Spazio';" % (machine)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'NOTOK', 'Spazio', '%s');" % (machine, status, date)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Spazio';".format(machine=machine)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'NOTOK', 'Spazio', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "4":
-			status = "Gestor %s inactivo" % (resource)
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Gestores' and status LIKE 'Gestor %s%';" % (machine, resource)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'NOTOK', 'Gestores', '%s');" % (machine, status, date)
+			status = "Gestor {resource} inactivo".format(resource=resource)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Gestores' and status LIKE 'Gestor {resource}%';".format(machine=machine, resource=resource)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'NOTOK', 'Gestores', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "5":
-			status = "Gestor %s activo" % (resource)
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Gestores' and status LIKE 'Gestor %s%';" % (machine, resource)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'OK', 'Gestores', '%s');" % (machine, status, date)
+			status = "Gestor {resource} activo".format(resource=resource)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Gestores' and status LIKE 'Gestor {resource}%';".format(machine=machine, resource=resource)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'OK', 'Gestores', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "6":
-			status = "Linea %s desactivada" % (line)
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Lineas' and status LIKE 'Linea %s%';" % (machine, line)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'NOTOK', 'Lineas', '%s');" % (machine, status, date)
+			status = "Linea {line} desactivada".format(line=line)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Lineas' and status LIKE 'Linea {line}%';".format(machine=machine, line=line)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'NOTOK', 'Lineas', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "7":
-			status = "Linea %s activada" % (line)
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Lineas' and status LIKE 'Linea %s%';" % (machine, line)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'OK', 'Lineas', '%s');" % (machine, status, date)
+			status = "Linea {line} activada".format(line=line)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Lineas' and status LIKE 'Linea {line}%';".format(machine=machine, line=line)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'OK', 'Lineas', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "8":
 			status = "Transport manager inactivo"
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Transport manager';" % (machine)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'NOTOK', 'Transport manager', '%s');" % (machine, status, date)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Transport manager';".format(machine=machine)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'NOTOK', 'Transport manager', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "9":
 			status = "Transport manager activo"
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Transport manager';" % (machine)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'OK', 'Transport manager', '%s');" % (machine, status, date)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Transport manager';".format(machine=machine)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'OK', 'Transport manager', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "10":
 			status = "Hay transferencias en fallo"
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Transferencias';" % (machine)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'NOTOK', 'Transferencias', '%s');" % (machine, status, date)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Transferencias';".format(machine=machine)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'NOTOK', 'Transferencias', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "11":
 			status = "Sin transferencias en fallo"
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Transferencias';" % (machine)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'OK', 'Transferencias', '%s');" % (machine, status, date)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Transferencias';".format(machine=machine)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'OK', 'Transferencias', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "12":
 			status = "Hay transferencias pendientes"
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Transferencias';" % (machine)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'NOTOK', 'Transferencias', '%s');" % (machine, status, date)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Transferencias';".format(machine=machine)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'NOTOK', 'Transferencias', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "13":
 			status = "Sin transferencias pendientes"
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Transferencias';" % (machine)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'OK', 'Transferencias', '%s');" % (machine, status, date)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Transferencias';".format(machine=machine)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'OK', 'Transferencias', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "16":
-			status = "La cola %s del gestor %s tiene ficheros sin extraer" % (queue, resource)
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Ficheros' and dangerLevel = 'OK';" % (machine)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'NOTOK', 'Ficheros', '%s');" % (machine, status, date)
+			status = "La cola {queue} del gestor {resource} tiene ficheros sin extraer".format(queue=queue, resource=resource)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Ficheros' and dangerLevel = 'OK';".format(machine=machine)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'NOTOK', 'Ficheros', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "17":
 			status = "Las colas no tienen ficheros sin extraer"
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Ficheros' and status = 'La cola %s del gestor %s tiene ficheros sin extraer';" % (queue, resource)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'OK', 'Ficheros', '%s');" % (machine, status, date)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Ficheros' and status = 'La cola {queue} del gestor {resource} tiene ficheros sin extraer';".format(machine=machine, queue=queue, resource=resource)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'OK', 'Ficheros', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "24":
-			status = "El proceso %s esta caido" % (process)
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Procesos' and status = 'El proceso %s esta corriendo';" % (machine, process)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'NOTOK', 'Procesos', '%s');" % (machine, status, date)
+			status = "El proceso {process} esta caido".format(process=process)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Procesos' and status = 'El proceso {process} esta corriendo';".format(machine=machine, process=process)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'NOTOK', 'Procesos', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "25":
-			status = "El proceso %s esta corriendo" % (process)
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Procesos' and status = 'El proceso %s esta caido';" % (machine, process)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'OK', 'Procesos', '%s');" % (machine, status, date)
+			status = "El proceso {process} esta corriendo".format(process=process)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Procesos' and status LIKE 'El proceso {process}%';".format(machine=machine, process=process)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'OK', 'Procesos', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "27":
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Spazio' and dangerLevel != 'OK';" % (machine)
-			update_query = "update SpazioStatus set date = '%s' where machine = '%s';" % (date, machine)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Spazio' and dangerLevel != 'OK';".format(machine=machine)
+			update_query = "update SpazioStatus set date = '{date}' where machine = '{machine}';".format(machine=machine, process=process)
 		elif trap == "42":
 			status = "El agente SNMP no esta contemplado en la licencia"
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Licencia SNMP';" % (machine)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'NOTOK', 'Licencia SNMP', '%s');" % (machine, status, date)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Licencia SNMP';".format(machine=machine)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'NOTOK', 'Licencia SNMP', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "43":
 			status = "El agente SNMP tiene licencia"
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Licencia SNMP';" % (machine)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'OK', 'Licencia SNMP', '%s');" % (machine, status, date)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Licencia SNMP';".format(machine=machine)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'OK', 'Licencia SNMP', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "44":
 			status = "La licencia de Spazio no es valida"
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Licencia Spazio';" % (machine)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'NOTOK', 'Licencia Spazio', '%s');" % (machine, status, date)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Licencia Spazio';".format(machine=machine)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'NOTOK', 'Licencia Spazio', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "45":
 			status = "La licencia de Spazio caducara en menos de 30 dias"
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Licencia Spazio';" % (machine)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'WARN', 'Licencia Spazio', '%s');" % (machine, status, date)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Licencia Spazio';".format(machine=machine)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'WARN', 'Licencia Spazio', '{date}');".format(machine=machine, status=status, date=date)
 		elif trap == "46":
 			status = "La licencia de Spazio es correcta"
-			delete_query = "delete from SpazioStatus where machine = '%s' and problemGroup = 'Licencia Spazio';" % (machine)
-			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('%s', '%s', 'OK', 'Licencia Spazio', '%s');" % (machine, status, date)
+			delete_query = "delete from SpazioStatus where machine = '{machine}' and problemGroup = 'Licencia Spazio';".format(machine=machine)
+			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'OK', 'Licencia Spazio', '{date}');".format(machine=machine, status=status, date=date)
 
 		if "delete_query" in locals() and "update_query" in locals():
 			db.connect()
 			db.execute(delete_query)
 
 			if trap == "17":
-				check = db.execute("select * from SpazioStatus where machine = '%s' and problemGroup = 'Ficheros';" % (machine))
+				check = db.execute("select * from SpazioStatus where machine = '{machine}' and problemGroup = 'Ficheros';".format(machine=machine))
 				if not check:
 					db.execute(update_query)
 			else:
