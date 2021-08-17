@@ -8,7 +8,7 @@ import socket
 
 class DataBase:
 	def connect(self):
-		self.database = sqlite3.connect("../web/app/database.sql")
+		self.database = sqlite3.connect("../web/app/SpazioDatabase.sql")
 
 	def execute(self, query):
 		data = self.database.execute(query)
@@ -249,17 +249,21 @@ def cbFun(transportDispatcher, transportDomain, transportAddress, wholeMsg):
 			update_query = "insert into SpazioStatus(machine, status, dangerLevel, problemGroup, date) values ('{machine}', '{status}', 'OK', 'Licencia Spazio', '{date}');".format(machine=machine, status=status, date=date)
 
 		if "delete_query" in locals() and "update_query" in locals():
-			db.connect()
-			db.execute(delete_query)
+			try:
+				db.connect()
+				db.execute(delete_query)
 
-			if trap == "17":
-				check = db.execute("select * from SpazioStatus where machine = '{machine}' and problemGroup = 'Ficheros';".format(machine=machine))
-				if not check:
+				if trap == "17":
+					check = db.execute("select * from SpazioStatus where machine = '{machine}' and problemGroup = 'Ficheros';".format(machine=machine))
+					if not check:
+						db.execute(update_query)
+				else:
 					db.execute(update_query)
-			else:
-				db.execute(update_query)
-			
-			db.close()
+			except:
+				print("Error en la base de datos")
+
+			finally:
+				db.close()
 
 	return wholeMsg
 
